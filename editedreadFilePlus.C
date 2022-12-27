@@ -71,7 +71,7 @@ void editedreadFilePlus() {
   //defining fitting function
   TF1 *fau1=new TF1("fau1", BreitWignerCombFit, 1.2, 2., 7);// TF1: 1-D function
 
-  for (Int_t j = 0; j<9; j++) {//pt loop start
+  for (Int_t j = 0; j<9; j++) {//pt loop start   Int_t j = 0; j<9; j++ #####################################################################################################
     Double_t integralBinCounting=0.;
     binNorm=1.;
   
@@ -159,15 +159,6 @@ void editedreadFilePlus() {
     Double_t ratio = h1_integral/h1mix_integral;
 
     h1mix->Scale(ratio);
-      
-    //c3->cd(j+1);
-    //h1->SetMarkerStyle(20);
-    //h1->SetMarkerSize(0.3);
-    //h1->Draw();
-    //h1mix->SetMarkerStyle(20);
-    //h1mix->SetMarkerSize(0.3);
-    //h1mix->SetMarkerColor(2);
-    //h1mix->Draw("same");
     
     gStyle->SetOptStat(1111);
     gStyle->SetOptFit(1111);
@@ -178,12 +169,37 @@ void editedreadFilePlus() {
     hSigma->Add(h1mix,-1);
 
     //rebin gia skabanevasmata
-    /* if (j==1) { */
-    /*   hSigma->Rebin(2); */
-    /*   binNorm=2.; */
-    /* } */
+    if (j==0) { 
+      hSigma->Rebin(2); 
+      binNorm=2.; 
+    }
 
-    TF1 *fu=new TF1("fu", BreitWignerCombFit, 1.2, 2., 7);//We can change the limits here
+    if (j==2) { 
+      hSigma->Rebin(8); 
+      binNorm=2.; 
+    }
+
+    if (j==4) { 
+      hSigma->Rebin(7); 
+      binNorm=2.; 
+    }
+
+    if (j==6) { 
+      hSigma->Rebin(8); 
+      binNorm=2.; 
+    }
+
+    if (j==7) { 
+      hSigma->Rebin(24); 
+      binNorm=2.; 
+    }
+
+    if (j==8) { 
+      hSigma->Rebin(24); 
+      binNorm=2.; 
+    }
+
+    TF1 *fu=new TF1("fu", BreitWignerCombFit, 1.2, 2., 7);//We can change the limits here || BreitWignerCombFit, 1.2, 2., 7
 
     //get function  
     fu->SetParameter(0,6.15758e-01);
@@ -239,7 +255,7 @@ void editedreadFilePlus() {
       mass->SetBinError(j+1, emean);
       width->SetBinContent(j+1, gamma);
       width->SetBinError(j+1, egamma);
-      rawYield->SetBinContent(j+1, integral);//We want this graph also
+      rawYield->SetBinContent(j+1, integral);
       rawYield->SetBinError(j+1, TMath::Sqrt(integral));
         
       significance=integral/TMath::Sqrt(integralAll);
